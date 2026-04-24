@@ -1,0 +1,67 @@
+podcasts:
+  # === Core (7) ===
+  - name: "All-In Podcast"
+    rss_url: "https://rss.libsyn.com/shows/254861/destinations/1928300.xml"
+    category: "Core"
+
+  - name: "a16z Podcast"
+    rss_url: "https://feeds.simplecast.com/JGE3yC0V"
+    category: "Core"
+
+  - name: "Lex Fridman Podcast"
+    rss_url: "https://lexfridman.com/feed/podcast/"
+    category: "Core"
+
+  - name: "Dwarkesh Podcast"
+    rss_url: "https://api.substack.com/feed/podcast/69345.rss"
+    category: "Core"
+
+  - name: "No Priors"
+    rss_url: "https://feeds.megaphone.fm/nopriors"
+    category: "Core"
+
+  - name: "Acquired"
+    rss_url: "https://feeds.transistor.fm/acquired"
+    category: "Core"
+
+  - name: "Founders"
+    rss_url: "https://feeds.megaphone.fm/DSLLC6297708582"
+    category: "Core"
+
+  # === VC (3) ===
+  - name: "20VC"
+    rss_url: "https://thetwentyminutevc.libsyn.com/rss"
+    category: "VC"
+
+  - name: "Invest Like the Best"
+    rss_url: "https://feeds.megaphone.fm/investlikethebest"
+    category: "VC"
+
+  - name: "Pro Rata"
+    rss_url: "https://feeds.megaphone.fm/pro-rata"
+    category: "VC"
+
+  # === Tech/Business (5) ===
+  - name: "Diary of a CEO"
+    rss_url: "https://rss2.flightcast.com/xmsftuzjjykcmqwolaqn6mdn"
+    category: "Tech/Business"
+
+  - name: "WTF is with Nikhil Kamath"
+    rss_url: "https://feeds.hubhopper.com/664690fdea0d7a6f61a052da119934d3.rss"
+    category: "Tech/Business"
+
+  - name: "Moonshots with Peter Diamandis"
+    rss_url: "https://feeds.megaphone.fm/DVVTS2890392624"
+    category: "Tech/Business"
+
+  - name: "Relentless"
+    rss_url: "https://feeds.buzzsprout.com/978772.rss"
+    category: "Tech/Business"
+
+  - name: "Sourcery"
+    rss_url: "https://anchor.fm/s/f192713c/podcast/rss"
+    category: "Tech/Business"
+
+email:
+  recipient: "${GMAIL_ADDRESS}"
+  sender: "${GMAIL_ADDRESS}"

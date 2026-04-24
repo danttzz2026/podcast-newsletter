@@ -1,0 +1,16 @@
+# Secrets
+.env
+
+# Runtime state (machine-specific)
+state.json
+daemon_state.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# macOS
+.DS_Store
