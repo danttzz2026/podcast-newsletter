@@ -1,8 +1,8 @@
 # Secrets
 .env
 
-# Runtime state (machine-specific)
-state.json
+# Runtime state — daemon-only (machine-specific). state.json is committed
+# so GitHub Actions has memory across runs.
 daemon_state.json
 
 # Python
