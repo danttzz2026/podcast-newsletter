@@ -1,0 +1,43 @@
+name: Daily Newsletter
+
+on:
+  schedule:
+    # 13:00 UTC = 9 AM EDT (8 AM EST). GitHub Actions cron is UTC and does not observe DST.
+    # Adjust the hour here if you want a different send time.
+    - cron: "0 13 * * *"
+  workflow_dispatch:  # allows manual "Run workflow" button on GitHub
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit updated state.json back to the repo
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run newsletter
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: python main.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git diff --cached --quiet && echo "No state changes." || git commit -m "Update state.json [skip ci]"
+          git push
