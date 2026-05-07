@@ -20,7 +20,8 @@
     "80623c8b-f312-4532-8149-458a50621a43",
     "0c32cb02-ac0b-4745-bfd9-bb18dac80c91",
     "04b68d0e-7b20-4fb2-b604-444f5dcb4a73",
-    "5071aa4a-a2d8-4595-8602-e9ab3952bd54"
+    "5071aa4a-a2d8-4595-8602-e9ab3952bd54",
+    "ad90636a-9076-42e0-86dd-97d5abc916bd"
   ],
   "Invest Like the Best": [
     "fdcd4328-2c77-11f1-a72b-977309fd08f1",
@@ -41,10 +42,12 @@
     "aedbde1a-44a9-11f1-a127-3f55d6bd3727"
   ],
   "Founders": [
-    "1a5a3c58-2d6d-11f1-ba11-0ba85589b062"
+    "1a5a3c58-2d6d-11f1-ba11-0ba85589b062",
+    "c84ca768-4a3e-11f1-80af-73873a70ebdd"
   ],
   "Relentless": [
-    "Buzzsprout-18942167"
+    "Buzzsprout-18942167",
+    "Buzzsprout-19132543"
   ],
   "Sourcery": [
     "5eaa4ca2-6681-4747-8144-6ab38ac712d4",
@@ -67,7 +70,8 @@
     "0cd6aee2-1bf3-47d8-9297-f8911bdb4331",
     "f4d04864-e653-4000-9516-a09531f2a4e3",
     "e1c41a42-4203-4b07-80f5-d5140bb1390e",
-    "c1bfcfa3-379a-4725-be89-570513c73820"
+    "c1bfcfa3-379a-4725-be89-570513c73820",
+    "ae3f7c14-d752-4fd7-bef6-aec4f156aa8c"
   ],
   "Diary of a CEO": [
     "flightcast:01KN553DYEH7M1NY416J0WGDY6",
@@ -79,7 +83,8 @@
     "flightcast:01KQ00359JTYNQ0E9T9TTKG3SV",
     "flightcast:01KQDN7P374JRHZHW5ATSYRECC",
     "flightcast:01KQ7TY8MFT987DJXV13GTSASP",
-    "flightcast:01KQNHXQA2C1EYGWGH1G7VPF2C"
+    "flightcast:01KQNHXQA2C1EYGWGH1G7VPF2C",
+    "flightcast:01KR007TME4VJBSHMQSHHY34J4"
   ],
   "Dwarkesh Podcast": [
     "substack:post:193466212"
@@ -98,5 +103,8 @@
   ],
   "Acquired": [
     "5ad38cec-40ac-43e1-bc70-1c32617e4573"
+  ],
+  "Lex Fridman Podcast": [
+    "https://lexfridman.com/?p=6450"
   ]
 }
