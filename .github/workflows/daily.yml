@@ -2,16 +2,18 @@ name: Daily Newsletter
 
 on:
   schedule:
-    # 13:00 UTC = 9 AM EDT (8 AM EST). GitHub Actions cron is UTC and does not observe DST.
-    # Adjust the hour here if you want a different send time.
+    # 13:00 UTC = 9 AM EDT (8 AM EST)
     - cron: "0 13 * * *"
-  workflow_dispatch:  # allows manual "Run workflow" button on GitHub
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   send:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # needed to commit updated state.json back to the repo
+      contents: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -27,17 +29,19 @@ jobs:
 
       - name: Run newsletter
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
         run: python main.py
 
       - name: Commit updated state
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git add state.json
           git diff --cached --quiet && echo "No state changes." || git commit -m "Update state.json [skip ci]"
           git push
