@@ -6,7 +6,7 @@ A daily digest bot that polls RSS feeds for new podcast episodes, summarizes the
 
 1. **`feeds.py`** — checks all RSS feeds in `config.yaml` for episodes published in the last 2 days. Tracks seen episode GUIDs in `state.json` to avoid duplicates.
 2. **`transcribe.py`** — extracts and cleans show-notes text from RSS descriptions.
-3. **`summarize.py`** — calls Claude (`claude-sonnet-4-6`) to generate a structured summary: overview, key takeaways, notable quotes, why it matters.
+3. **`summarize.py`** — calls Gemini (`gemini-2.0-flash`) to generate a structured summary: overview, key takeaways, notable quotes, why it matters.
 4. **`newsletter.py`** — formats the summaries into a styled HTML email, grouped by category.
 5. **`sender.py`** — sends the email via Gmail SMTP.
 6. **`main.py`** — orchestrates the pipeline. Entry point.
@@ -30,7 +30,7 @@ state.json        # Seen GUIDs — committed so cloud runs have memory
 
 | Variable | Required | Description |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | Yes | Claude API key from console.anthropic.com |
+| `GEMINI_API_KEY` | Yes | Gemini API key from ai.google.dev |
 | `GMAIL_ADDRESS` | Yes | Gmail address used to send the newsletter |
 | `GMAIL_APP_PASSWORD` | Yes | Gmail App Password (not the account password) |
 | `RECIPIENT_EMAIL` | No | Send to a different address (defaults to `GMAIL_ADDRESS`) |

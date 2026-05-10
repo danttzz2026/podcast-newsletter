@@ -1,7 +1,7 @@
-"""Claude API summarization."""
+"""Gemini API summarization."""
 
 import os
-import anthropic
+import google.generativeai as genai
 
 PROMPT_TEMPLATE = """You are summarizing a podcast episode for a daily newsletter aimed at a tech/VC investor.
 
@@ -29,7 +29,8 @@ Include 2-3 direct quotes if available in the content. If no direct quotes are a
 
 def summarize_episode(episode: dict, content: str) -> dict:
     """Generate a structured summary of one episode."""
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+    model = genai.GenerativeModel("gemini-2.0-flash")
 
     if len(content) > 80_000:
         content = content[:80_000] + "\n\n[Content truncated]"
@@ -41,11 +42,7 @@ def summarize_episode(episode: dict, content: str) -> dict:
         content=content,
     )
 
-    message = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=1500,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    response = model.generate_content(prompt)
 
     return {
         "podcast_name": episode["podcast_name"],
@@ -53,7 +50,7 @@ def summarize_episode(episode: dict, content: str) -> dict:
         "episode_title": episode["title"],
         "published": episode["published"],
         "link": episode["link"],
-        "summary": message.content[0].text,
+        "summary": response.text,
     }
 
 
