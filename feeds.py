@@ -8,6 +8,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 STATE_FILE = Path(__file__).parent / "state.json"
+LOOKBACK = timedelta(hours=24)  # unseen episodes older than this are skipped
 
 
 def load_state() -> dict:
@@ -22,7 +23,7 @@ def check_feed(podcast: dict, state: dict) -> list[dict]:
     """Return new episodes from a single podcast feed."""
     name = podcast["name"]
     seen = set(state.get(name, []))
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=2)).strftime("%Y-%m-%d")
+    cutoff = datetime.now(timezone.utc) - LOOKBACK
 
     try:
         feed = feedparser.parse(podcast["rss_url"])
@@ -42,9 +43,10 @@ def check_feed(podcast: dict, state: dict) -> list[dict]:
 
         published = ""
         if getattr(entry, "published_parsed", None):
-            published = datetime(*entry.published_parsed[:6]).strftime("%Y-%m-%d")
-        if published and published < cutoff:
-            continue
+            published_dt = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+            published = published_dt.strftime("%Y-%m-%d")
+            if published_dt < cutoff:
+                continue
 
         description = ""
         if getattr(entry, "content", None):
