@@ -30,7 +30,7 @@ Include 2-3 direct quotes if available in the content. If no direct quotes are a
 def summarize_episode(episode: dict, content: str) -> dict:
     """Generate a structured summary of one episode."""
     genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-    model = genai.GenerativeModel("gemini-2.0-flash")
+    model = genai.GenerativeModel("gemini-2.5-flash")
 
     if len(content) > 80_000:
         content = content[:80_000] + "\n\n[Content truncated]"
@@ -56,6 +56,9 @@ def summarize_episode(episode: dict, content: str) -> dict:
 
 def summarize_all(episodes: list[dict], contents: list[str]) -> list[dict]:
     """Summarize each episode; skip ones that fail."""
+    if not os.getenv("GEMINI_API_KEY"):
+        raise ValueError("GEMINI_API_KEY is not set")
+
     summaries = []
     for episode, content in zip(episodes, contents):
         print(f"  Summarizing: {episode['podcast_name']} — {episode['title']}")

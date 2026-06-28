@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent / ".env", override=True)
 
+import os
+
 from feeds import check_all_feeds, save_state
 from transcribe import get_episode_content
 from summarize import summarize_all
@@ -14,7 +16,18 @@ from newsletter import format_newsletter
 from sender import send_newsletter
 
 
+def require_env(*names: str) -> None:
+    missing = [name for name in names if not os.getenv(name)]
+    if missing:
+        joined = ", ".join(missing)
+        raise SystemExit(
+            f"Missing required environment variable(s): {joined}. "
+            "Set them in .env locally or GitHub Secrets in CI."
+        )
+
+
 def main():
+    require_env("GEMINI_API_KEY", "GMAIL_ADDRESS", "GMAIL_APP_PASSWORD")
     print("🎙️  Podcast Newsletter Bot\n")
 
     podcasts = yaml.safe_load((Path(__file__).parent / "config.yaml").read_text())["podcasts"]
@@ -28,14 +41,14 @@ def main():
     summaries = summarize_all(new_episodes, contents)
     if not summaries:
         print("\n⚠️ No summaries generated. Skipping newsletter.")
-        return
+        raise SystemExit(1)
 
     html = format_newsletter(summaries)
     try:
         send_newsletter(html, len(summaries))
     except ValueError as e:
         print(f"\n[ERROR] Email config: {e}")
-        return
+        raise SystemExit(1)
 
     save_state(updated_state)
     print(f"\n✅ Sent digest with {len(summaries)} summary(ies).")
