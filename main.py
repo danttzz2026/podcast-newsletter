@@ -8,6 +8,10 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent / ".env", override=True)
 
 import os
+import socket
+
+# Guard against a network read hanging forever and blocking the next day's run.
+socket.setdefaulttimeout(120)
 
 from feeds import check_all_feeds, save_state
 from transcribe import get_episode_content
